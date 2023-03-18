@@ -24,11 +24,11 @@ pipeline {
                 script {
                     dir('sock-shop-app/deploy/kubernetes') {
                         try{
-                            sh "aws eks update-kubeconfig --name altschool-cluster"
-                            sh "kubectl create -f complete-demo.yaml"
+                            sh "aws eks update-kubeconfig --name project1ekscluster"
+                            sh "kubectl create -f sock-shop.yaml"
                         }
                         catch(error){
-                            sh "kubectl apply -f complete-demo.yaml"
+                            sh "kubectl apply -f sock-shop.yaml"
                         }
 
                     }
@@ -38,7 +38,7 @@ pipeline {
         stage("Apply the clusterRole config"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f clusterRole.yaml"
                         }
@@ -53,7 +53,7 @@ pipeline {
         stage("Deploy prometheus configuration"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f config-map.yaml"
                         }
@@ -68,7 +68,7 @@ pipeline {
         stage("Deploy prometheus to kubernetes"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f prometheus-deployment.yaml"
                         }
@@ -83,7 +83,7 @@ pipeline {
         stage("Deploy prometheus service to kubernetes"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {            
+                    dir('prometheus') {            
                             sh "kubectl create -f prometheus-service.yaml"
 
                     }
@@ -93,7 +93,7 @@ pipeline {
         stage("Setting up Kube State Metrics on Kubernetes"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "git clone https://github.com/devopscube/kube-state-metrics-configs.git"
                             sh "kubectl apply -f kube-state-metrics-configs/"
@@ -108,7 +108,7 @@ pipeline {
         stage("Deploy Node Exporter  Deamonset"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f daemonset.yaml"
                         }
@@ -123,7 +123,7 @@ pipeline {
         stage("Deploy Node Exporter Service"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f node-exporter-service.yaml"
                         }
@@ -138,7 +138,7 @@ pipeline {
         stage("Create configmap for grafana"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f grafana-datasource-config.yaml"
                         }
@@ -153,7 +153,7 @@ pipeline {
         stage("Deploy grafana"){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f grafana-deployment.yaml"
                         }
@@ -168,7 +168,7 @@ pipeline {
         stage("Deploy grafana service "){
             steps{
                 script {
-                    dir('sock-shop-app/deploy/prometheus') {
+                    dir('prometheus') {
                         try{
                             sh "kubectl create -f grafana-service.yaml"
                         }

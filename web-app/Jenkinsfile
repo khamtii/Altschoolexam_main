@@ -7,11 +7,11 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage("Create portfolio namespace"){
+        stage("Create webapp namespace"){
             steps{
                 script{
                     try{
-                        sh "kubectl create namespace portfolio"
+                        sh "kubectl create namespace webapp"
                     }
                     catch(error){
 
@@ -19,16 +19,16 @@ pipeline {
                 }
             }
         }
-        stage("Deploy to My-App") {
+        stage("Deploy to web-App") {
             steps {
                 script {
-                    dir('my-app/k8s') {
+                    dir('web-app') {
                         try{
-                            sh "aws eks update-kubeconfig --name altschool-cluster"
-                            sh "kubectl create -f portfolio-deployment.yml"
+                            sh "aws eks update-kubeconfig --name project1ekscluster"
+                            sh "kubectl create -k kubernetes"
                         }
                         catch(error){
-                            sh "kubectl apply -f portfolio-deployment.yml"
+                            sh "kubectl apply -k kubernetes"
                         }
 
                     }

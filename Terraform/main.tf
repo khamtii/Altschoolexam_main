@@ -1,3 +1,4 @@
+
 provider "aws" {
   region = var.region
 }
@@ -41,3 +42,4 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.eks_cluster.token
   #load_config_file       = false
 }
+
