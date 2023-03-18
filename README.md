@@ -18,8 +18,7 @@ you can visit the various webapps:
 
 - [sock-shop.ktaltproject.me](http://sock-shop.ktaltproject.me) - socks shop
 - [webapp.ktaltproject.me](http://webapp.ktaltproject.me) - webapp
-- [prometheus.ktaltproject.me](http://prometheus.ktaltproject.me) - prometheus monitoring
-- [grafana.ktaltproject.me](http://grafana.ktaltproject.me) - grafana monitoring 
+
 
 
  run `kubectl get pods -A` to get a list of all running pods:
